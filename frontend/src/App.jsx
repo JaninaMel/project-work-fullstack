@@ -16,13 +16,19 @@ function App() {
   }, []);
 
   let arr = locations.map((location) => (
-    <li key={location.id}>
-      {location.latitude} - {location.longitude}
-    </li>
+    <tr key={location.id}>
+      <th>{location.latitude}</th><th>{location.longitude}</th>
+    </tr>
   ))
   return (
     <>
-      <ul>{arr}</ul>
+    <table>
+      <tr>
+        <th>English</th>
+        <th>Finnish</th>
+      </tr>
+      {arr}
+    </table>
     </>
   )
 }

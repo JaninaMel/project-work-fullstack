@@ -16,8 +16,9 @@ const db = new sqlite3.Database(":memory:", (err) => {
 
 db.serialize(() => {
     db.run("CREATE TABLE IF NOT EXISTS locations (id INTEGER PRIMARY KEY AUTOINCREMENT, latitude INTEGER, longitude INTEGER);");
-    db.run("INSERT INTO locations (latitude, longitude) VALUES (?, ?)", [60, 60]);
+    db.run("INSERT INTO locations (latitude, longitude) VALUES (?, ?)", [90, 90]);
     db.run("INSERT INTO locations (latitude, longitude) VALUES (?, ?)", [40, 90]);
+    db.run("INSERT INTO locations (latitude, longitude) VALUES (?, ?)", [60, 90]);
     db.all("SELECT * FROM locations", [], (err, rows) => {
         if (err) {
             throw err;
