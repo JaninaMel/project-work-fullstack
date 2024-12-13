@@ -11,10 +11,10 @@ function App() {
       <nav className="navi">
         <ul>
           <li className='nav-item'>
-            <Link to="/">Main Page</Link>
+            <Link to="/">Learn!</Link>
           </li>
           <li className='last-nav-item'>
-            <Link to="/about">About</Link>
+            <Link to="/admin">Admin</Link>
           </li>
         </ul>
       </nav>

@@ -20,7 +20,7 @@ function UserComponent() {
         </tr>
     ))
     return (
-        <div>
+        <div id="userView">
     <table>
         <thead>
         <tr>
@@ -32,7 +32,7 @@ function UserComponent() {
         {arr}
         </tbody>
     </table>
-        </div>
+    </div>
     )
 }
 
