@@ -12,11 +12,20 @@ th {
   width: 500px;
 }
 
+table {
+  margin: auto;
+}
+
+ul {
+  list-style-type: none;
+}
+
 .navi {
   background-color: rgb(228, 228, 228);
   height: 50px;
   padding-top: 10px;
   margin-top: -18px;
+  margin-bottom: 50px;
 }
 
 .nav-item,
@@ -31,4 +40,15 @@ th {
   font-size: 80%;
   font-weight: bold;
   padding: 0 6px;
+}
+
+.userView {
+  text-align: center;
+}
+
+.input-fields {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding-bottom: 10px;
 }
