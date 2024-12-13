@@ -4,9 +4,31 @@
 }
 
 table,
+td,
 th {
   border: 1px solid;
   border-collapse: collapse;
   padding: 5px;
   width: 500px;
+}
+
+.navi {
+  background-color: rgb(228, 228, 228);
+  height: 50px;
+  padding-top: 10px;
+  margin-top: -18px;
+}
+
+.nav-item,
+.last-nav-item {
+  display: inline-block;
+}
+
+.nav-item a::after {
+  display: inline-block;
+  color: #000;
+  content: '~';
+  font-size: 80%;
+  font-weight: bold;
+  padding: 0 6px;
 }

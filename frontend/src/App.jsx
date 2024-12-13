@@ -1,35 +1,29 @@
-import { useEffect, useState } from 'react'
-import './App.css'
+import { useEffect, useState } from 'react';
+import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
+import UserComponent from './UserComponent';
+import AdminComponent from './AdminComponent';
+import './App.css';
 
 function App() {
-  let [locations, setLocations] = useState([]);
-  const apiUrl = `/api/locations`;
-
-  useEffect(() => {
-    const fetchIt = async () => {
-      const hr = await fetch(apiUrl);
-      const data = await hr.json();
-      setLocations(data);
-    }
-
-    fetchIt();
-  }, []);
-
-  let arr = locations.map((location) => (
-    <tr key={location.id}>
-      <th>{location.latitude}</th><th>{location.longitude}</th>
-    </tr>
-  ))
   return (
+    <BrowserRouter>
     <>
-    <table>
-      <tr>
-        <th>English</th>
-        <th>Finnish</th>
-      </tr>
-      {arr}
-    </table>
-    </>
+      <nav className="navi">
+        <ul>
+          <li className='nav-item'>
+            <Link to="/">Main Page</Link>
+          </li>
+          <li className='last-nav-item'>
+            <Link to="/about">About</Link>
+          </li>
+        </ul>
+      </nav>
+      </>
+      <Routes>
+        <Route path='/' element={<UserComponent />}></Route>
+        <Route path='admin/' element={<AdminComponent />}></Route>
+      </Routes>
+    </BrowserRouter >
   )
 }
 
