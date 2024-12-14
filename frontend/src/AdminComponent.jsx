@@ -31,12 +31,12 @@ function AdminComponent() {
     const handleSave = () => {}
 
     let arr = locations.map((location) => (
-        <div key={location.id}>
+        <div key={location.id} className='word-pair'>
             <li>{location.latitude} - {location.longitude}</li>
         </div>
     ))
     return (
-        <>
+        <div className='admin-view'>
         <div className='word-adder'>
             <h2>Add new word:</h2>
             <div className='input-fields'>
@@ -54,7 +54,7 @@ function AdminComponent() {
         <ul>
             {arr}
         </ul>
-        </>
+        </div>
     )
 }
 
