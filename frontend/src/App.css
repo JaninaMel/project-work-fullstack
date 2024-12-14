@@ -18,6 +18,7 @@ table {
 
 ul {
   list-style-type: none;
+  padding: 0;
 }
 
 .navi {
@@ -46,9 +47,26 @@ ul {
   text-align: center;
 }
 
+.admin-view {
+  display: flex;
+  flex-direction: column;
+}
+
 .input-fields {
   display: flex;
   justify-content: center;
   gap: 10px;
   padding-bottom: 10px;
+}
+
+.word-pair {
+  margin: auto auto 5px auto;
+  padding: 5px;
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 4px;
+  width: 50%;
+  background-color: gray;
+  border-color: rgb(108, 105, 105);
+  color: rgb(227, 227, 227);
 }
