@@ -1,18 +1,19 @@
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function AdminComponent() {
-    let [locations, setLocations] = useState([]);
+    let [words, setWords] = useState([]);
     let [prompt, setPromt] = useState("");
     let [ans, setAns] = useState("");
-    const apiUrl = `/api/locations`;
+    const apiUrl = `/api/words`;
+
+    const fetchIt = async () => {
+        const hr = await fetch(apiUrl);
+        const data = await hr.json();
+        setWords(data);
+    }
 
     useEffect(() => {
-        const fetchIt = async () => {
-            const hr = await fetch(apiUrl);
-            const data = await hr.json();
-            setLocations(data);
-        }
-
         fetchIt();
     }, []);
 
@@ -28,11 +29,21 @@ function AdminComponent() {
         setAns(inputValue);
     }
 
-    const handleSave = () => {}
+    const handleSave = () => {
+        const word = {
+            english: prompt,
+            finnish: ans
+        }
+        const saveWord = async () => {
+            await axios.post(apiUrl, word);
+            fetchIt();
+        }
+        saveWord();
+    }
 
-    let arr = locations.map((location) => (
-        <div key={location.id} className='word-pair'>
-            <li>{location.latitude} - {location.longitude}</li>
+    let arr = words.map((word) => (
+        <div key={word.id} className='word-pair'>
+            <li>{word.english} - {word.finnish}</li>
         </div>
     ))
     return (

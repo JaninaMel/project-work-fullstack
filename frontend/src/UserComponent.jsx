@@ -1,22 +1,22 @@
 import { useEffect, useState } from 'react';
 
 function UserComponent() {
-    let [locations, setLocations] = useState([]);
-    const apiUrl = `/api/locations`;
+    let [words, setWords] = useState([]);
+    const apiUrl = `/api/words`;
 
     useEffect(() => {
         const fetchIt = async () => {
             const hr = await fetch(apiUrl);
             const data = await hr.json();
-            setLocations(data);
+            setWords(data);
         }
 
         fetchIt();
     }, []);
 
-    let arr = locations.map((location) => (
-        <tr key={location.id}>
-            <td>{location.latitude}</td><td>{location.longitude}</td>
+    let arr = words.map((word) => (
+        <tr key={word.id}>
+            <td>{word.english}</td><td>answer here</td>
         </tr>
     ))
     return (
