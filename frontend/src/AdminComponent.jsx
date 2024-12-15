@@ -8,8 +8,8 @@ function AdminComponent() {
     const apiUrl = `/api/words`;
 
     const fetchIt = async () => {
-        const hr = await fetch(apiUrl);
-        const data = await hr.json();
+        const hr = await axios.get(apiUrl);
+        let data = hr.data;
         setWords(data);
     }
 
