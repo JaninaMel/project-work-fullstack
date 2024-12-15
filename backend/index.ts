@@ -5,7 +5,7 @@ const port = process.env.PORT || 3000;
 const wordRouter = require("./routes/routing.ts");
 
 app.use(express.static(path.join(__dirname, "public")));
-
+app.use(express.json());
 app.use("/api/words", wordRouter);
 
 /*process.on("SIGINT", () => {
