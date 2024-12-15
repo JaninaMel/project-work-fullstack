@@ -19,9 +19,13 @@ function UserComponent() {
     //Implement handling changes for the answers in inputs.
     const handleChange = () => {}
 
+    //TODO:
+    //Implement handling for the event for pressing submit.
+    const handleSubmit = () => {}
+
     let arr = words.map((word) => (
         <tr key={word.id}>
-            <td>{word.english}</td><td><input type='text' onChange={handleChange()}></input></td>
+            <td>{word.english}</td><td><input type='text' onChange={handleChange}></input></td>
         </tr>
     ))
     return (
@@ -37,6 +41,7 @@ function UserComponent() {
         {arr}
         </tbody>
     </table>
+    <button type='button' onClick={handleSubmit}>Submit</button>
     </div>
     )
 }
