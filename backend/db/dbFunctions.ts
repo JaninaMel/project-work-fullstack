@@ -32,6 +32,23 @@ const databaseFunctions = {
                 resolve(results);
             })
         })
+    },
+
+    addNew: (wordPair) => {
+        return new Promise((resolve, reject) => {
+            const query = "INSERT INTO words (english, finnish) VALUES (?,?)";
+            db.run(query, [wordPair.english, wordPair.finnish], (err) => {
+                if (err) {
+                    reject(err);
+                    return;
+                }
+                const word = {
+                    english: wordPair.english,
+                    finnish: wordPair.finnish
+                }
+                resolve(wordPair);
+            })
+        })
     }
 }
 
