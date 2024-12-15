@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function UserComponent() {
     let [words, setWords] = useState([]);
@@ -6,17 +7,21 @@ function UserComponent() {
 
     useEffect(() => {
         const fetchIt = async () => {
-            const hr = await fetch(apiUrl);
-            const data = await hr.json();
+            const hr = await axios.get(apiUrl);
+            let data = hr.data;
             setWords(data);
         }
 
         fetchIt();
     }, []);
 
+    //TODO:
+    //Implement handling changes for the answers in inputs.
+    const handleChange = () => {}
+
     let arr = words.map((word) => (
         <tr key={word.id}>
-            <td>{word.english}</td><td>answer here</td>
+            <td>{word.english}</td><td><input type='text' onChange={handleChange()}></input></td>
         </tr>
     ))
     return (
