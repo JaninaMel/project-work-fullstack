@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
+// TODO: add deleting word pairs and editing word pairs.
+
 function AdminComponent() {
     let [words, setWords] = useState([]);
     let [prompt, setPromt] = useState("");

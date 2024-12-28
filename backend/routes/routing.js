@@ -1,4 +1,4 @@
-const db = require("../db/dbFunctions.ts");
+const db = require("../db/dbFunctions.js");
 const express = require('express');
 const wordRouter = express.Router();
 

@@ -21,6 +21,7 @@ function UserComponent() {
 
     //TODO:
     //Implement handling for the event for pressing submit.
+    // User gets a score based on how many they got correct.
     const handleSubmit = () => {}
 
     let arr = words.map((word) => (
