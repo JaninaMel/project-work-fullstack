@@ -23,4 +23,15 @@ wordRouter.post("/", async (req, res) => {
     }
 })
 
+// Deletes word pairs from the database
+wordRouter.delete("/:wordId", async (req, res) => {
+    const id = parseInt(req.params.wordId);
+    try {
+        await db.deleteById(id);
+        res.status(204).send("Deleted successfully.");
+    } catch (error) {
+
+    }
+})
+
 module.exports = wordRouter;

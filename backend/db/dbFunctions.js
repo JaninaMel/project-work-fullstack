@@ -1,3 +1,5 @@
+const { rejects } = require('assert');
+
 const sqlite3 = require('sqlite3').verbose();
 
 const db = new sqlite3.Database(":memory:", (err) => {
@@ -47,6 +49,20 @@ const databaseFunctions = {
                     finnish: wordPair.finnish
                 }
                 resolve(wordPair);
+            })
+        })
+    },
+
+    deleteById: (id) => {
+        return new Promise((resolve, reject) => {
+            const query = "DELETE FROM words WHERE id = ?";
+            db.run(query, id, (err) => {
+                if (err) {
+                    reject(err);
+                    return;
+                }
+
+                resolve(null);
             })
         })
     }
