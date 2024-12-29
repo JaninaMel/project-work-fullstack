@@ -2,6 +2,8 @@ const db = require("../db/dbFunctions.js");
 const express = require('express');
 const wordRouter = express.Router();
 
+//TODO: Add error handling.
+
 // Fetches all word pairs from database.
 wordRouter.get("/", async (req, res) => {
     try {
@@ -31,6 +33,22 @@ wordRouter.delete("/:wordId", async (req, res) => {
         res.status(204).send("Deleted successfully.");
     } catch (error) {
 
+    }
+})
+
+// Get word pair based on ID.
+wordRouter.get("/:wordId", async (req, res) => {
+    const id = parseInt(req.params.wordId);
+    try {
+        const wordPair = await db.findById(id);
+
+        if (!wordPair) {
+            return res.status(404).json({ error: "Nothing found with given ID." })
+        }
+
+        res.status(200).json(wordPair);
+    } catch (error) {
+        console.error(error);
     }
 })
 

@@ -65,6 +65,20 @@ const databaseFunctions = {
                 resolve(null);
             })
         })
+    },
+
+    findById: (id) => {
+        return new Promise((resolve, reject) => {
+            const query = "SELECT * FROM words WHERE id = ?";
+            db.get(query, id, (err, results) => {
+                if (err) {
+                    reject(err);
+                    return;
+                }
+
+                resolve(results);
+            })
+        })
     }
 }
 
