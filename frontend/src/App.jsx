@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 import UserComponent from './UserComponent';
 import AdminComponent from './AdminComponent';
+import EditComponent from './EditComponent';
 import './App.css';
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
       <Routes>
         <Route path='/' element={<UserComponent />}></Route>
         <Route path='admin/' element={<AdminComponent />}></Route>
+        <Route path='edit/:wordId' element={<EditComponent />}></Route>
       </Routes>
     </BrowserRouter >
   )

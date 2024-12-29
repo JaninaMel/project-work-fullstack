@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-// TODO: add deleting word pairs and editing word pairs.
+// TODO: add editing word pairs.
 
 function AdminComponent() {
     let [words, setWords] = useState([]);
@@ -44,7 +44,6 @@ function AdminComponent() {
         saveWord();
     }
 
-    //Todo: check if works
     const handleDelete = (e) => {
         const deleteWordPair = async () => {
             await axios.delete(`${apiUrl}/${e.target.id}`);
@@ -58,7 +57,8 @@ function AdminComponent() {
         <div className='word-pair'>
             <p>{word.english} - {word.finnish}</p>
         </div>
-        <button onClick={handleDelete} id={word.id}>Delete</button>
+            <button onClick={handleDelete} id={word.id}>Delete</button>
+            <Link to={`/edit/${word.id}`}>Edit</Link>
         </div>
     ))
 
