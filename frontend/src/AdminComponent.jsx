@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 // TODO: add deleting word pairs and editing word pairs.
@@ -43,11 +44,24 @@ function AdminComponent() {
         saveWord();
     }
 
+    //Todo: check if works
+    const handleDelete = (e) => {
+        const deleteWordPair = async () => {
+            await axios.delete(`${apiUrl}/${e.target.id}`);
+            fetchIt();
+        }
+        deleteWordPair();
+    }
+
     let arr = words.map((word) => (
-        <div key={word.id} className='word-pair'>
-            <li>{word.english} - {word.finnish}</li>
+        <div key={word.id} className='word-pair-element'>
+        <div className='word-pair'>
+            <p>{word.english} - {word.finnish}</p>
+        </div>
+        <button onClick={handleDelete} id={word.id}>Delete</button>
         </div>
     ))
+
     return (
         <div className='admin-view'>
         <div className='word-adder'>
@@ -64,9 +78,9 @@ function AdminComponent() {
             <button onClick={handleSave}>Save</button>
         </div>
         <h2>Current word pairs:</h2>
-        <ul>
+        <div>
             {arr}
-        </ul>
+        </div>
         </div>
     )
 }

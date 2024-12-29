@@ -59,8 +59,13 @@ ul {
   padding-bottom: 10px;
 }
 
+.word-pair-element {
+  margin: auto auto 10px auto;
+  justify-content: center;
+  display: flex;
+}
+
 .word-pair {
-  margin: auto auto 5px auto;
   padding: 5px;
   border-radius: 10px;
   border-style: solid;
