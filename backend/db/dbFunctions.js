@@ -1,5 +1,3 @@
-const { rejects } = require('assert');
-
 const sqlite3 = require('sqlite3').verbose();
 
 const db = new sqlite3.Database(":memory:", (err) => {
@@ -78,6 +76,45 @@ const databaseFunctions = {
 
                 resolve(results);
             })
+        })
+    },
+
+    update: (id, updates) => {
+        return new Promise((resolve, reject) => {
+            const updateEng = "UPDATE words SET english = ? WHERE id = ?";
+            const updateFin = "UPDATE words SET finnish = ? WHERE id = ?";
+            const updateBoth = "UPDATE words SET english = ?, finnish = ? WHERE id = ?";
+
+            if (updates.english === "") {
+                //Updating only finnish
+                db.run(updateFin, [updates.finnish, id], (err) => {
+                    if (err) {
+                        reject(err);
+                        return;
+                    }
+                    resolve(updates);
+                })
+
+            } else if (updates.finnish === "") {
+                // Updating only english
+                db.run(updateEng, [updates.english, id], (err) => {
+                    if (err) {
+                        reject(err);
+                        return;
+                    }
+                    resolve(updates);
+                })
+
+            } else {
+                // Updating both
+                db.run(updateBoth, [updates.english, updates.finnish, id], (err) => {
+                    if (err) {
+                        reject(err);
+                        return;
+                    }
+                    resolve(updates);
+                })
+            }
         })
     }
 }
