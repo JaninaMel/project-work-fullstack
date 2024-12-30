@@ -2,14 +2,13 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-// TODO: add editing word pairs.
-
 function AdminComponent() {
     let [words, setWords] = useState([]);
-    let [prompt, setPromt] = useState("");
+    let [prompt, setPrompt] = useState("");
     let [ans, setAns] = useState("");
     const apiUrl = `/api/words`;
 
+    // Fetching word pair data from the backend.
     const fetchIt = async () => {
         const hr = await axios.get(apiUrl);
         let data = hr.data;
@@ -20,30 +19,38 @@ function AdminComponent() {
         fetchIt();
     }, []);
 
+    // Handles the changes made by the user to the "english" input field.
     const handlePromptChange = () => {
         const input = document.getElementById("promptInput");
         const inputValue = input.value;
-        setPromt(inputValue);
+        setPrompt(inputValue);
     }
 
+    // Handles the changes made by the user to the "finnish" input field.
     const handleAnsChange = () => {
         const input = document.getElementById("ansInput");
         const inputValue = input.value;
         setAns(inputValue);
     }
 
+    // Handles saving new word pairs.
     const handleSave = () => {
-        const word = {
-            english: prompt,
-            finnish: ans
+        if (prompt !== "" && ans !== "") {
+            const word = {
+                english: prompt,
+                finnish: ans
+            }
+            const saveWord = async () => {
+                await axios.post(apiUrl, word);
+                fetchIt();
+            }
+            saveWord();
+        } else {
+            alert("Both fields must be filled, to add a new word pair!");
         }
-        const saveWord = async () => {
-            await axios.post(apiUrl, word);
-            fetchIt();
-        }
-        saveWord();
     }
 
+    // Handles  deleting word pairs.
     const handleDelete = (e) => {
         const deleteWordPair = async () => {
             await axios.delete(`${apiUrl}/${e.target.id}`);
@@ -52,13 +59,14 @@ function AdminComponent() {
         deleteWordPair();
     }
 
+    // Mapping the array for listing all the arrays into the UI.
     let arr = words.map((word) => (
         <div key={word.id} className='word-pair-element'>
         <div className='word-pair'>
             <p>{word.english} - {word.finnish}</p>
         </div>
             <button onClick={handleDelete} id={word.id}>Delete</button>
-            <Link to={`/edit/${word.id}`}>Edit</Link>
+            <Link to={`/edit/${word.id}`} className='edit-link'>Edit</Link>
         </div>
     ))
 
