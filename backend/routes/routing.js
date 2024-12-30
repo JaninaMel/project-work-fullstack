@@ -3,6 +3,7 @@ const express = require('express');
 const wordRouter = express.Router();
 
 //TODO: Add error handling.
+//TODO: Add routing for patch requests.
 
 // Fetches all word pairs from database.
 wordRouter.get("/", async (req, res) => {
@@ -47,6 +48,17 @@ wordRouter.get("/:wordId", async (req, res) => {
         }
 
         res.status(200).json(wordPair);
+    } catch (error) {
+        console.error(error);
+    }
+})
+
+// Handle patch requests
+wordRouter.patch("/:wordId", async (req, res) => {
+    const id = parseInt(req.params.wordId);
+    try {
+        const updatedPair = await db.update(id, req.body);
+        res.status(200).json(null);
     } catch (error) {
         console.error(error);
     }
