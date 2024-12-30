@@ -21,25 +21,23 @@ function EditComponent() {
     }
 
     const handlePromptChange = (e) => {
-        if (e.target.value !== "" && e.target.value !== undefined) {
             setPair({...wordPair, english: e.target.value});
-        }
      }
 
     const handleAnsChange = (e) => {
-        if (e.target.value !== "" && e.target.value !== undefined) {
             setPair({ ...wordPair, finnish: e.target.value });
-        }
     }
 
       const handleSave = () => {
-        /*
         const saveWordPair = async () => {
-            await axios.patch(`${apiUrl}/${wordId}`, wordPair);
-            alert("Your changes have been saved successfully!");
+            if (wordPair.english === "" && wordPair.finnish === "") {
+                alert("Both fields empty, no changes made!");
+            } else {
+                await axios.patch(`${apiUrl}/${wordId}`, wordPair);
+                alert("Your changes have been saved successfully!");
+            }
         }
         saveWordPair();
-        */
     }
 
     return(
