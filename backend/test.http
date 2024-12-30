@@ -1,7 +1,10 @@
+
+#Get all word pairs
 GET http://localhost:3000/api/words
 
 ###
 
+# Post a new word pair
 POST http://localhost:3000/api/words
 Content-Type: application/json
 
@@ -12,8 +15,23 @@ Content-Type: application/json
 
 ###
 
+# Delete a word pair
 DELETE http://localhost:3000/api/words/4
 
 ###
 
+# Get a specific word pair by ID.
 GET http://localhost:3000/api/words/3
+
+###
+
+# Update a word pair.
+PATCH http://localhost:3000/api/words/5
+Content-Type: application/json
+
+{
+    "english": "moo",
+    "finnish": "Lehmä"
+}
+
+###
