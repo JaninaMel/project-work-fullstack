@@ -2,7 +2,12 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 function UserComponent() {
+    // Array for the word pairs fetched from backend.
     let [words, setWords] = useState([]);
+    // Array for the answers input by the user.
+    let [answers, setAnswers] = useState([]);
+    // State to keep track of the user's score.
+    let [score, setScore] = useState(null);
     const apiUrl = `/api/words`;
 
     useEffect(() => {
@@ -15,18 +20,32 @@ function UserComponent() {
         fetchIt();
     }, []);
 
-    //TODO:
-    //Implement handling changes for the answers in inputs.
-    const handleChange = () => {}
+    // Handles changes madi into the input fields by the user.
+    const handleUserAnsChange = (id, ans) => {
+        setAnswers((prevAnswers) => ({
+            ...prevAnswers, [id]: ans
+        }))
+    }
 
-    //TODO:
-    //Implement handling for the event for pressing submit.
+    // Handles clicking the submit button.
     // User gets a score based on how many they got correct.
-    const handleSubmit = () => {}
+    const handleSubmit = () => {
+        let scoreCount = 0;
+        if (answers === undefined || answers.length == 0) {
+            return;
+        }
+        for (let i = 0; i < words.length; i++) {
+            if (answers[i+1] !== undefined && words[i].finnish.toLowerCase() === answers[i+1].toLowerCase()) {
+                console.log("Match!");
+                scoreCount++;
+            }
+            setScore(scoreCount);
+        }
+    }
 
     let arr = words.map((word) => (
         <tr key={word.id}>
-            <td>{word.english}</td><td><input type='text' onChange={handleChange}></input></td>
+            <td>{word.english}</td><td><input type='text' onChange={(e) => handleUserAnsChange(word.id, e.target.value)}></input></td>
         </tr>
     ))
     return (
@@ -43,6 +62,13 @@ function UserComponent() {
         </tbody>
     </table>
     <button type='button' onClick={handleSubmit}>Submit</button>
+    <div>
+        {score != null && (
+            <p>
+                Your score: {score}/{words.length}
+            </p>
+        )}
+    </div>
     </div>
     )
 }
