@@ -46,7 +46,7 @@ function AdminComponent() {
             }
             saveWord();
         } else {
-            alert("Both fields must be filled, to add a new word pair!");
+            alert("Both fields must be filled to add a new word pair!");
         }
     }
 
