@@ -20,7 +20,7 @@ function UserComponent() {
         fetchIt();
     }, []);
 
-    // Handles changes madi into the input fields by the user.
+    // Handles changes made into the input fields by the user.
     const handleUserAnsChange = (id, ans) => {
         setAnswers((prevAnswers) => ({
             ...prevAnswers, [id]: ans
@@ -36,7 +36,6 @@ function UserComponent() {
         }
         for (let i = 0; i < words.length; i++) {
             if (answers[i+1] !== undefined && words[i].finnish.toLowerCase() === answers[i+1].toLowerCase()) {
-                console.log("Match!");
                 scoreCount++;
             }
             setScore(scoreCount);
