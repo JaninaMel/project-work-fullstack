@@ -51,6 +51,15 @@ a {
   text-align: center;
 }
 
+.instructions {
+  margin: auto;
+  width: 70%;
+}
+
+.instructions p:first-of-type {
+  text-align: left;
+}
+
 .admin-view {
   display: flex;
   flex-direction: column;
