@@ -1,10 +1,14 @@
-import { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 import UserComponent from './UserComponent';
 import AdminComponent from './AdminComponent';
 import EditComponent from './EditComponent';
 import './App.css';
 
+/**
+ * Component with routing and navigation for the app.
+ *
+ * @returns {JSX.Element} The app component with the navbar and routing.
+ */
 function App() {
   return (
     <BrowserRouter>

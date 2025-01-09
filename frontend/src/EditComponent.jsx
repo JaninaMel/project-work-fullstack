@@ -2,12 +2,28 @@ import { useState, useEffect } from 'react';
 import { Routes, Route, useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 
+/**
+ * The edit component allows users to edit word pairs
+ * already submitted to the database.
+ *
+ * Includes input fields for finnish and english versions of the word,
+ * and has a save button that saves the changes made to the word pair by the
+ * user.
+ *
+ * @returns {JSX.Element} Edit component that allows users to edit word pairs.
+ */
 function EditComponent() {
     let [wordPair, setPair] = useState(null);
+    // ID from the current route.
     let { wordId } = useParams();
     const apiUrl = `/api/words`;
 
+    // Upon loading the page invokes getWordPair function.
    useEffect(() => {
+        /**
+         * Fetches the specific word pair according to the ID
+         * from the current route.
+         */
         const getWordPair = async () => {
             let hr = await axios.get(`${apiUrl}/${wordId}`);
             let data = hr.data;
@@ -16,18 +32,38 @@ function EditComponent() {
         getWordPair();
     }, [])
 
+    // Checking if the word pair has been fetched and set into the stare.
     if(!wordPair) {
         return <div><h1>Loading</h1></div>;
     }
 
+    /**
+     * Handles input changes made to the corresponding input field.
+     *
+     * @param {Event} e the Event object for the on change event for the input
+     *                  field. Used to access the input fields value to update
+     *                  the word pair's setState function.
+     */
     const handlePromptChange = (e) => {
             setPair({...wordPair, english: e.target.value});
      }
 
+    /**
+     * Handles input changes made to the corresponding input field.
+     *
+     * @param {Event} e the Event object for the on change event for the input
+     *                  field. Used to access the input fields value to update
+     *                  the word pair's setState function.
+     */
     const handleAnsChange = (e) => {
             setPair({ ...wordPair, finnish: e.target.value });
     }
 
+    /**
+     * Handles sending patch requests to backend to save changes
+     * to the word pair made by the user. Alerts user if no changes
+     * were deteced.
+     */
       const handleSave = () => {
         const saveWordPair = async () => {
             if (wordPair.english === "" && wordPair.finnish === "") {

@@ -2,38 +2,62 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+/**
+ * A component that allows for adding and deleting word pairs and allows the
+ * user to access the edit page for word pairs as well.
+ *
+ * Icludes input fields for adding finnish and english versions for a word and
+ * a save button to save the new word pair. Also provides a delete button for deleting
+ * word pairs and a link to the edit page where they can be then edited.
+ *
+ *
+ * @returns {JSX.Element} Admin component for adding, deleting and accessing the editing for word pairs.
+ */
 function AdminComponent() {
     let [words, setWords] = useState([]);
     let [prompt, setPrompt] = useState("");
     let [ans, setAns] = useState("");
     const apiUrl = `/api/words`;
 
-    // Fetching word pair data from the backend.
-    const fetchIt = async () => {
+    /**
+     * Fetches the word pairs from the backend.
+     */
+    const fetchWords = async () => {
         const hr = await axios.get(apiUrl);
         let data = hr.data;
         setWords(data);
     }
 
+    // Upon loading the page, invokes fetchWords.
     useEffect(() => {
-        fetchIt();
+        fetchWords();
     }, []);
 
-    // Handles the changes made by the user to the "english" input field.
-    const handlePromptChange = () => {
+    /**
+     * Handles input changes made in to the corresponding input field.
+     * Sets the input field value into the propmt state.
+     */
+    const handlePromptChange =() => {
         const input = document.getElementById("promptInput");
         const inputValue = input.value;
         setPrompt(inputValue);
     }
 
-    // Handles the changes made by the user to the "finnish" input field.
+    /**
+     * Handles input changes made in to the corresponding input field.
+     * Sets the input field value into the ans state.
+     */
     const handleAnsChange = () => {
         const input = document.getElementById("ansInput");
         const inputValue = input.value;
         setAns(inputValue);
     }
 
-    // Handles saving new word pairs.
+    /**
+     * Handles OnClick-event for the save button.
+     * Sends new word pairs to the backend to be saved to
+     * the database.
+     */
     const handleSave = () => {
         if (prompt !== "" && ans !== "") {
             const word = {
@@ -42,7 +66,7 @@ function AdminComponent() {
             }
             const saveWord = async () => {
                 await axios.post(apiUrl, word);
-                fetchIt();
+                fetchWords();
             }
             saveWord();
         } else {
@@ -50,11 +74,16 @@ function AdminComponent() {
         }
     }
 
-    // Handles  deleting word pairs.
+    /**
+     * Sends a delete request to the backend for a word pair to be
+     * deleted from the database.
+     * @param {Event} e the Event object for the on click event. Used
+     *                  for getting the id for the word pair to be deleted.
+     */
     const handleDelete = (e) => {
         const deleteWordPair = async () => {
             await axios.delete(`${apiUrl}/${e.target.id}`);
-            fetchIt();
+            fetchWords();
         }
         deleteWordPair();
     }
