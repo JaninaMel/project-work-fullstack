@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { Routes, Route, useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 
+// TODO: Add instructions.
+
 /**
  * The edit component allows users to edit word pairs
  * already submitted to the database.
@@ -33,12 +35,16 @@ function EditComponent() {
     }, [])
 
     // Checking if the word pair has been fetched and set into the stare.
+    // If the wordPair has not yet been fetched, function returns div element
+    // with "Loading" text.
     if(!wordPair) {
         return <div><h1>Loading</h1></div>;
     }
 
     /**
      * Handles input changes made to the corresponding input field.
+     * Calls setState (setPair) to update the "english"
+     * key value pair in the wordPair object.
      *
      * @param {Event} e the Event object for the on change event for the input
      *                  field. Used to access the input fields value to update
@@ -50,6 +56,8 @@ function EditComponent() {
 
     /**
      * Handles input changes made to the corresponding input field.
+     * Calls setState (setPair) to update the "finnish"
+     * key value pair in the wordPair object.
      *
      * @param {Event} e the Event object for the on change event for the input
      *                  field. Used to access the input fields value to update
@@ -62,7 +70,7 @@ function EditComponent() {
     /**
      * Handles sending patch requests to backend to save changes
      * to the word pair made by the user. Alerts user if no changes
-     * were deteced.
+     * were detected.
      */
       const handleSave = () => {
         const saveWordPair = async () => {
@@ -90,7 +98,6 @@ function EditComponent() {
                 </div>
             </div>
             <button onClick={handleSave}>Save changes</button>
-
         </div>
     )
 }
