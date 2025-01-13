@@ -6,7 +6,7 @@ import axios from 'axios';
  * A component that allows for adding and deleting word pairs and allows the
  * user to access the edit page for word pairs as well.
  *
- * Icludes input fields for adding finnish and english versions for a word and
+ * Includes input fields for adding finnish and english versions for a word and
  * a save button to save the new word pair. Also provides a delete button for deleting
  * word pairs and a link to the edit page where they can be then edited.
  *
@@ -101,6 +101,22 @@ function AdminComponent() {
 
     return (
         <div className='admin-view'>
+            <div className='instructions'>
+                <h1>Instructions</h1>
+                <p>- Add new word pairs by inputting the word and
+                    its translation in the fields below, then click the save button
+                    to save the word pair.
+                    <br></br>
+                    <br></br>
+                    - Delete word pairs by clicking the delete button next to the word
+                    pair you wish to delete. The word pair will be permanently deleted.
+                    <br></br>
+                    <br></br>
+                    - Edit word pairs by clicking the edit button next to the word pair
+                    you wish to edit. This will take you to different view where you
+                    can edit the word pair.
+                    </p>
+            </div>
         <div className='word-adder'>
             <h2>Add new word:</h2>
             <div className='input-fields'>

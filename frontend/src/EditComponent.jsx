@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 import { Routes, Route, useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 
-// TODO: Add instructions.
-
 /**
  * The edit component allows users to edit word pairs
  * already submitted to the database.
@@ -86,6 +84,15 @@ function EditComponent() {
 
     return(
         <div>
+            <div className='instructions'>
+                <h1>Instructions</h1>
+                <p>Input you changes into the given fields
+                    and click "Save changes" to save the changes you made.
+                    You can change both or only the English or Finnish version
+                    of the word. Leaving a field empty will result in no changes
+                    in that field.
+                </p>
+            </div>
             <h1>Edit word pair:</h1>
             <div className='input-fields'>
                 <div>
