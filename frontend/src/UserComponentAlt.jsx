@@ -51,6 +51,7 @@ function UserComponentAlt() {
         let parsedKeys = ansKeys.map(key => parseInt(key, answers.length));
 
         for (let i = 0; i < words.length; i++) {
+            // Checking that the answer is not empty, and if it matches with the answer from the database.
             if (answers[parsedKeys[i]] !== undefined && words.find(answer => answer.id === parsedKeys[i]).english.toLowerCase() === answers[parsedKeys[i]].toLowerCase()) {
                 scoreCount++;
             }
