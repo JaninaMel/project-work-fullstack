@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Routes, Route, useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 
 // TODO: possibly add a list for the words users got wrong.
@@ -33,8 +34,15 @@ function UserComponent() {
         fetchWords();
     }, []);
 
+    /*
+    Asked AI about how this function should be called so I can have
+    the ID and get the event target value. Also had issues with setting
+    the state with the spread operator alone, so AI adviced to use prevState
+    in the setState call.
+    */
     /**
      * Handles changes made into the input fields for answer by the user.
+     *
      *
      * @param {number} id The id of the word the user is giving the answer to.
      *                    Set as the key for the key value pair.
@@ -55,11 +63,13 @@ function UserComponent() {
      */
     const handleSubmit = () => {
         let scoreCount = 0;
+        // Get keys from the answers object
         let ansKeys = Object.keys(answers);
         // Parsing the numbers in the key array.
         let parsedKeys = ansKeys.map(key => parseInt(key, answers.length));
 
         for (let i = 0; i < words.length; i++) {
+            // Checking that the answer is not empty, and if it matches with the answer from the database.
             if (answers[parsedKeys[i]] !== undefined && words.find(answer => answer.id === parsedKeys[i]).finnish.toLowerCase() === answers[parsedKeys[i]].toLowerCase()) {
                 scoreCount++;
             }
@@ -76,6 +86,10 @@ function UserComponent() {
 
     return (
         <div id="userView">
+            <div>
+                <p>To translate from Finnish instead of English click the button below:</p>
+                <Link to={`/alt`} className='edit-link'>Translate from Finnish</Link>
+            </div>
             <div className='instructions'>
                 <h1>Instructions</h1>
                 <p>Answer into the fields provided in
