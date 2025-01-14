@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react';
 import { Routes, Route, useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 
-// TODO: possibly add a list for the words users got wrong.
-
 /**
  * A component for users to train the words in the database,
  * by providing finnish translations to the given english words.
@@ -25,6 +23,10 @@ function UserComponent() {
 
     // Invokes fetchWords function when the page is loaded.
     useEffect(() => {
+        /**
+         * Fetches word pairs from the database and
+         * sets them into the 'words' state.
+         */
         const fetchWords = async () => {
             const hr = await axios.get(apiUrl);
             let data = hr.data;
