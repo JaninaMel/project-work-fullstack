@@ -4,18 +4,16 @@ const app = express();
 const port = process.env.PORT || 3000;
 const wordRouter = require("./routes/routing.js");
 
+// Serves static files from "public"
 app.use(express.static(path.join(__dirname, "public")));
+// Parses JSON requests
 app.use(express.json());
+// Routes requests under "api/words"
 app.use("/api/words", wordRouter);
 
-/*process.on("SIGINT", () => {
-    db.close(() => {
-        console.log("Database disconnected.");
-        process.exit(0);
-    });
-})*/
-//db.close();
-
+/**
+ * Starts the server and listens to the given port.
+ */
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 });
