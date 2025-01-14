@@ -35,9 +35,9 @@ Project should now be ready to use.
 
 - `GET /api/words` Fetches all word pairs.
 - `POST /api/words` Adds a new word pair.
-- `DELETE /api/words/:id` Deletes a specific word pair.
-- `GET /api/words/:id` Fetches a specific word pair.
-- `PATCH /api/words/:id` Updates a specific word pair.
+- `DELETE /api/words/:wordId` Deletes a specific word pair.
+- `GET /api/words/:wordId` Fetches a specific word pair.
+- `PATCH /api/words/:wordId` Updates a specific word pair.
 
 # Link to a working project in cloud
 Click this link [Learn English App](https://backend-dev-deployment.onrender.com) to open a working version of the project in cloud.
