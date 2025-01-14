@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: frontend/src/UserComponentAlt.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: frontend/src/UserComponentAlt.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { useState, useEffect } from 'react';
+import { Routes, Route, useParams, Link } from 'react-router-dom';
+import axios from 'axios';
+
+function UserComponentAlt() {
+    // Array for the word pairs fetched from backend.
+    let [words, setWords] = useState([]);
+    // Array for the answers input by the user.
+    let [answers, setAnswers] = useState([]);
+    // State to keep track of the user's score.
+    let [score, setScore] = useState(null);
+    const apiUrl = `/api/words`;
+
+    // Invokes fetchWords function when the page is loaded.
+    useEffect(() => {
+        /**
+         * Fetches word pairs from the database and
+         * sets them into the 'words' state.
+         */
+        const fetchWords = async () => {
+            const hr = await axios.get(apiUrl);
+            let data = hr.data;
+            setWords(data);
+        }
+
+        fetchWords();
+    }, []);
+
+    /**
+ * Handles changes made into the input fields for answer by the user.
+ *
+ *
+ * @param {number} id The id of the word the user is giving the answer to.
+ *                    Set as the key for the key value pair.
+ * @param {String} ans The answer given by the user. From the event object
+ *                     of the  on change event of the input field. Set as the
+ *                     value in the key value pair.
+ */
+    const handleUserAnsChange = (id, ans) => {
+        setAnswers((prevAnswers) => ({ ...prevAnswers, [id]: ans }));
+    }
+
+    /**
+     * Handles checking the answer and counting the score when
+     * user clicks the submit button.
+     * Compares the correct finnish translation from the database
+     * with the user's input. Ignores case.
+     * Calls the setState for the score and updates it when the answer is correct.
+     */
+    const handleSubmit = () => {
+        let scoreCount = 0;
+        // Get keys from the answers object
+        let ansKeys = Object.keys(answers);
+        // Parsing the numbers in the key array.
+        let parsedKeys = ansKeys.map(key => parseInt(key, answers.length));
+
+        for (let i = 0; i &lt; words.length; i++) {
+            // Checking that the answer is not empty, and if it matches with the answer from the database.
+            if (answers[parsedKeys[i]] !== undefined &amp;&amp; words.find(answer => answer.id === parsedKeys[i]).english.toLowerCase() === answers[parsedKeys[i]].toLowerCase()) {
+                scoreCount++;
+            }
+            setScore(scoreCount);
+        }
+    }
+
+    // Mapping the array for the table element incliding the anser input fields.
+    let arr = words.map((word) => (
+        &lt;tr key={word.id}>
+            &lt;td>{word.finnish}&lt;/td>&lt;td>&lt;input type='text' onChange={(e) => handleUserAnsChange(word.id, e.target.value)}>&lt;/input>&lt;/td>
+        &lt;/tr>
+    ))
+
+    return(
+        &lt;div id="userView">
+            &lt;div>
+                &lt;p>To translate from English instead of Finnish click the button below:&lt;/p>
+                &lt;Link to="/" className='edit-link'>Translate from English&lt;/Link>
+            &lt;/div>
+            &lt;div className='instructions'>
+                &lt;h1>Instructions&lt;/h1>
+                &lt;p>Answer into the fields provided in
+                    the "English" column. Answer with
+                    the English translation of the word provided
+                    in Finnish in the "Finnish" column. Once you're done,
+                    click the "Submit" button and you will get your score.
+                &lt;/p>
+                &lt;p>You can leave fields empty.&lt;/p>
+            &lt;/div>
+            &lt;table>
+                &lt;thead>
+                    &lt;tr>
+                        &lt;th>Finnish&lt;/th>
+                        &lt;th>English&lt;/th>
+                    &lt;/tr>
+                &lt;/thead>
+                &lt;tbody>
+                    {arr}
+                &lt;/tbody>
+            &lt;/table>
+            &lt;button type='button' onClick={handleSubmit}>Submit&lt;/button>
+            &lt;div>
+                {score != null &amp;&amp; (
+                    &lt;p>
+                        Your score: {score}/{words.length}
+                    &lt;/p>
+                )}
+            &lt;/div>
+        &lt;/div>
+    )
+}
+
+export default UserComponentAlt;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AdminComponent">AdminComponent</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#DELETE/:wordId">DELETE /:wordId</a></li><li><a href="global.html#EditComponent">EditComponent</a></li><li><a href="global.html#GET/">GET /</a></li><li><a href="global.html#GET/:wordId">GET /:wordId</a></li><li><a href="global.html#PATCH/:wordId">PATCH /:wordId</a></li><li><a href="global.html#POST/">POST /</a></li><li><a href="global.html#UserComponent">UserComponent</a></li><li><a href="global.html#databaseFunctions">databaseFunctions</a></li><li><a href="global.html#db">db</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Tue Jan 14 2025 17:05:06 GMT+0200 (Itä-Euroopan normaaliaika)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

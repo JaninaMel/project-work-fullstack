@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: frontend/src/AdminComponent.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: frontend/src/AdminComponent.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+
+/**
+ * A component that allows for adding and deleting word pairs and allows the
+ * user to access the edit page for word pairs as well.
+ *
+ * Includes input fields for adding finnish and english versions for a word and
+ * a save button to save the new word pair. Also provides a delete button for deleting
+ * word pairs and a link to the edit page where they can be then edited.
+ *
+ *
+ * @returns {JSX.Element} Admin component for adding, deleting and accessing the editing for word pairs.
+ */
+function AdminComponent() {
+    let [words, setWords] = useState([]);
+    let [prompt, setPrompt] = useState("");
+    let [ans, setAns] = useState("");
+    const apiUrl = `/api/words`;
+
+    /**
+     * Fetches the word pairs from the backend.
+     * Invokes setState for 'words' with the fetched data.
+     */
+    const fetchWords = async () => {
+        const hr = await axios.get(apiUrl);
+        let data = hr.data;
+        setWords(data);
+    }
+
+    // Upon loading the page, invokes fetchWords.
+    useEffect(() => {
+        fetchWords();
+    }, []);
+
+    /**
+     * Handles input changes made in to the corresponding input field.
+     * Sets the input field value into the 'prompt' state.
+     */
+    const handlePromptChange =() => {
+        const input = document.getElementById("promptInput");
+        const inputValue = input.value;
+        setPrompt(inputValue);
+    }
+
+    /**
+     * Handles input changes made in to the corresponding input field.
+     * Sets the input field value into the 'ans' state.
+     */
+    const handleAnsChange = () => {
+        const input = document.getElementById("ansInput");
+        const inputValue = input.value;
+        setAns(inputValue);
+    }
+
+    /**
+     * Handles OnClick-event for the save button.
+     * Sends new word pairs to the backend to be saved to
+     * the database.
+     */
+    const handleSave = () => {
+        if (prompt !== "" &amp;&amp; ans !== "") {
+            const word = {
+                english: prompt,
+                finnish: ans
+            }
+            const saveWord = async () => {
+                await axios.post(apiUrl, word);
+                fetchWords();
+            }
+            saveWord();
+        } else {
+            alert("Both fields must be filled to add a new word pair!");
+        }
+    }
+
+    /**
+     * Sends a delete request to the backend for a word pair to be
+     * deleted from the database.
+     * @param {Event} e the Event object for the on click event. Used
+     *                  for getting the id for the word pair to be deleted.
+     */
+    const handleDelete = (e) => {
+        const deleteWordPair = async () => {
+            await axios.delete(`${apiUrl}/${e.target.id}`);
+            fetchWords();
+        }
+        deleteWordPair();
+    }
+
+    // Mapping the array for listing all the arrays into the UI.
+    let arr = words.map((word) => (
+        &lt;div key={word.id} className='word-pair-element'>
+        &lt;div className='word-pair'>
+            &lt;p>{word.english} - {word.finnish}&lt;/p>
+        &lt;/div>
+            &lt;button onClick={handleDelete} id={word.id}>Delete&lt;/button>
+            &lt;Link to={`/edit/${word.id}`} className='edit-link'>Edit&lt;/Link>
+        &lt;/div>
+    ))
+
+    return (
+        &lt;div className='admin-view'>
+            &lt;div className='instructions'>
+                &lt;h1>Instructions&lt;/h1>
+                &lt;p>- Add new word pairs by inputting the word and
+                    its translation in the fields below, then click the save button
+                    to save the word pair.
+                    &lt;br>&lt;/br>
+                    &lt;br>&lt;/br>
+                    - Delete word pairs by clicking the delete button next to the word
+                    pair you wish to delete. The word pair will be permanently deleted.
+                    &lt;br>&lt;/br>
+                    &lt;br>&lt;/br>
+                    - Edit word pairs by clicking the edit button next to the word pair
+                    you wish to edit. This will take you to different view where you
+                    can edit the word pair.
+                    &lt;/p>
+            &lt;/div>
+        &lt;div className='word-adder'>
+            &lt;h2>Add new word:&lt;/h2>
+            &lt;div className='input-fields'>
+                &lt;div>
+            &lt;h3>English:&lt;/h3>
+            &lt;input id="promptInput" type='text' onChange={handlePromptChange}>&lt;/input>
+            &lt;/div>&lt;div>
+            &lt;h3>Finnish:&lt;/h3>
+            &lt;input id="ansInput" type='text' onChange={handleAnsChange}>&lt;/input>
+                    &lt;/div>
+                &lt;/div>
+            &lt;button onClick={handleSave}>Save&lt;/button>
+        &lt;/div>
+        &lt;h2>Current word pairs:&lt;/h2>
+        &lt;div>
+            {arr}
+        &lt;/div>
+        &lt;/div>
+    )
+}
+
+export default AdminComponent;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AdminComponent">AdminComponent</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#DELETE/:wordId">DELETE /:wordId</a></li><li><a href="global.html#EditComponent">EditComponent</a></li><li><a href="global.html#GET/">GET /</a></li><li><a href="global.html#GET/:wordId">GET /:wordId</a></li><li><a href="global.html#PATCH/:wordId">PATCH /:wordId</a></li><li><a href="global.html#POST/">POST /</a></li><li><a href="global.html#UserComponent">UserComponent</a></li><li><a href="global.html#databaseFunctions">databaseFunctions</a></li><li><a href="global.html#db">db</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Tue Jan 14 2025 17:05:06 GMT+0200 (Itä-Euroopan normaaliaika)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

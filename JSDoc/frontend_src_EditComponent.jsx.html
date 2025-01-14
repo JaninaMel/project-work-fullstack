@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: frontend/src/EditComponent.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: frontend/src/EditComponent.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { useState, useEffect } from 'react';
+import { Routes, Route, useParams, Link } from 'react-router-dom';
+import axios from 'axios';
+
+/**
+ * The edit component allows users to edit word pairs
+ * already submitted to the database.
+ *
+ * Includes input fields for finnish and english versions of the word,
+ * and has a save button that saves the changes made to the word pair by the
+ * user.
+ *
+ * @returns {JSX.Element} Edit component that allows users to edit word pairs.
+ */
+function EditComponent() {
+    let [wordPair, setPair] = useState(null);
+    // ID from the current route.
+    let { wordId } = useParams();
+    const apiUrl = `/api/words`;
+
+    // Upon loading the page invokes getWordPair function.
+   useEffect(() => {
+        /**
+         * Fetches the specific word pair according to the ID
+         * from the current route.
+         */
+        const getWordPair = async () => {
+            let hr = await axios.get(`${apiUrl}/${wordId}`);
+            let data = hr.data;
+            setPair(data);
+        }
+        getWordPair();
+    }, [])
+
+    // Checking if the word pair has been fetched and set into the stare.
+    // If the wordPair has not yet been fetched, function returns div element
+    // with "Loading" text.
+    if(!wordPair) {
+        return &lt;div>&lt;h1>Loading&lt;/h1>&lt;/div>;
+    }
+
+    /**
+     * Handles input changes made to the corresponding input field.
+     * Calls setState (setPair) to update the "english"
+     * key value pair in the wordPair object.
+     *
+     * @param {Event} e the Event object for the on change event for the input
+     *                  field. Used to access the input fields value to update
+     *                  the word pair's setState function.
+     */
+    const handlePromptChange = (e) => {
+            setPair({...wordPair, english: e.target.value});
+     }
+
+    /**
+     * Handles input changes made to the corresponding input field.
+     * Calls setState (setPair) to update the "finnish"
+     * key value pair in the wordPair object.
+     *
+     * @param {Event} e the Event object for the on change event for the input
+     *                  field. Used to access the input fields value to update
+     *                  the word pair's setState function.
+     */
+    const handleAnsChange = (e) => {
+            setPair({ ...wordPair, finnish: e.target.value });
+    }
+
+    /**
+     * Handles sending patch requests to backend to save changes
+     * to the word pair made by the user. Alerts user if no changes
+     * were detected.
+     */
+      const handleSave = () => {
+        const saveWordPair = async () => {
+            if (wordPair.english === "" &amp;&amp; wordPair.finnish === "") {
+                alert("Both fields empty, no changes made!");
+            } else {
+                await axios.patch(`${apiUrl}/${wordId}`, wordPair);
+                alert("Your changes have been saved successfully!");
+            }
+        }
+        saveWordPair();
+    }
+
+    return(
+        &lt;div>
+            &lt;div className='instructions'>
+                &lt;h1>Instructions&lt;/h1>
+                &lt;p>Input you changes into the given fields
+                    and click "Save changes" to save the changes you made.
+                    You can change both or only the English or Finnish version
+                    of the word. Leaving a field empty will result in no changes
+                    in that field.
+                &lt;/p>
+            &lt;/div>
+            &lt;h1>Edit word pair:&lt;/h1>
+            &lt;div className='input-fields'>
+                &lt;div>
+                    &lt;h3>English:&lt;/h3>
+                    &lt;input id="promptInput" type='text' value={wordPair.english} onChange={handlePromptChange}>&lt;/input>
+                &lt;/div>
+                &lt;div>
+                    &lt;h3>Finnish:&lt;/h3>
+                    &lt;input id="ansInput" type='text' value={wordPair.finnish} onChange={handleAnsChange}>&lt;/input>
+                &lt;/div>
+            &lt;/div>
+            &lt;button onClick={handleSave}>Save changes&lt;/button>
+        &lt;/div>
+    )
+}
+
+export default EditComponent;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AdminComponent">AdminComponent</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#DELETE/:wordId">DELETE /:wordId</a></li><li><a href="global.html#EditComponent">EditComponent</a></li><li><a href="global.html#GET/">GET /</a></li><li><a href="global.html#GET/:wordId">GET /:wordId</a></li><li><a href="global.html#PATCH/:wordId">PATCH /:wordId</a></li><li><a href="global.html#POST/">POST /</a></li><li><a href="global.html#UserComponent">UserComponent</a></li><li><a href="global.html#databaseFunctions">databaseFunctions</a></li><li><a href="global.html#db">db</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Tue Jan 14 2025 17:05:06 GMT+0200 (Itä-Euroopan normaaliaika)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
