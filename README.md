@@ -43,7 +43,11 @@ Project should now be ready to use.
 Click this link [Learn English App](https://backend-dev-deployment.onrender.com) to open a working version of the project in cloud.
 # Screenshots
 ## User View
+![Initial User View](screenshots/initial-user-view.PNG)
+![Alternative User View](screenshots/alt-user-view.PNG)
 
 ## Admin View
+![Admin View](screenshots/admin-view.png)
+![Edit View](screenshots/edit-view.PNG)
 
 # Screencast
