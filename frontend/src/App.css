@@ -12,6 +12,10 @@ th {
   width: 500px;
 }
 
+thead {
+  background-color: #6DD6DA;
+}
+
 table {
   margin: auto;
 }
@@ -26,11 +30,17 @@ a {
 }
 
 .navi {
-  background-color: rgb(228, 228, 228);
+  background-color: #6DD6DA;
   height: 50px;
   padding-top: 10px;
   margin-top: -18px;
   margin-bottom: 50px;
+  border-style: solid;
+  border-color: #47a7aa;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+  border-width: 5px;
 }
 
 .nav-item,
@@ -58,6 +68,12 @@ a {
 
 .instructions p:first-of-type {
   text-align: left;
+  background-color: rgb(220, 220, 220);
+  padding: 20px 10px 20px 10px;
+  border-radius: 10px;
+  border-style: solid;
+  border-color: rgb(220, 220, 220);
+  color: #000;
 }
 
 .admin-view {
@@ -85,7 +101,7 @@ a {
   border-style: solid;
   border-width: 4px;
   width: 50%;
-  background-color: gray;
+  background-color: rgb(101, 101, 101);
   border-color: rgb(108, 105, 105);
   color: rgb(227, 227, 227);
 }
@@ -100,6 +116,10 @@ a {
   font-family: inherit;
   cursor: pointer;
   height: 50%;
-  background-color: #e7e7e7;
+  background-color: #f9eb71;
   text-decoration: none;
+}
+
+.delete-button {
+  background-color: #ffc863;
 }

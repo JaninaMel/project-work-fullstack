@@ -96,11 +96,11 @@ function EditComponent() {
             <h1>Edit word pair:</h1>
             <div className='input-fields'>
                 <div>
-                    <h3>English:</h3>
+                    <h2>English:</h2>
                     <input id="promptInput" type='text' value={wordPair.english} onChange={handlePromptChange}></input>
                 </div>
                 <div>
-                    <h3>Finnish:</h3>
+                    <h2>Finnish:</h2>
                     <input id="ansInput" type='text' value={wordPair.finnish} onChange={handleAnsChange}></input>
                 </div>
             </div>

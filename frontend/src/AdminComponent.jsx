@@ -95,7 +95,7 @@ function AdminComponent() {
         <div className='word-pair'>
             <p>{word.english} - {word.finnish}</p>
         </div>
-            <button onClick={handleDelete} id={word.id}>Delete</button>
+            <button onClick={handleDelete} id={word.id} className='delete-button'>Delete</button>
             <Link to={`/edit/${word.id}`} className='edit-link'>Edit</Link>
         </div>
     ))
