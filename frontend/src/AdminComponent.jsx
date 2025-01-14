@@ -21,6 +21,7 @@ function AdminComponent() {
 
     /**
      * Fetches the word pairs from the backend.
+     * Invokes setState for 'words' with the fetched data.
      */
     const fetchWords = async () => {
         const hr = await axios.get(apiUrl);
@@ -35,7 +36,7 @@ function AdminComponent() {
 
     /**
      * Handles input changes made in to the corresponding input field.
-     * Sets the input field value into the propmt state.
+     * Sets the input field value into the 'prompt' state.
      */
     const handlePromptChange =() => {
         const input = document.getElementById("promptInput");
@@ -45,7 +46,7 @@ function AdminComponent() {
 
     /**
      * Handles input changes made in to the corresponding input field.
-     * Sets the input field value into the ans state.
+     * Sets the input field value into the 'ans' state.
      */
     const handleAnsChange = () => {
         const input = document.getElementById("ansInput");
