@@ -13,6 +13,10 @@ function UserComponentAlt() {
 
     // Invokes fetchWords function when the page is loaded.
     useEffect(() => {
+        /**
+         * Fetches word pairs from the database and
+         * sets them into the 'words' state.
+         */
         const fetchWords = async () => {
             const hr = await axios.get(apiUrl);
             let data = hr.data;
