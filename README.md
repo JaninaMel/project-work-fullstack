@@ -43,11 +43,19 @@ Project should now be ready to use.
 Click this link [Learn English App](https://backend-dev-deployment.onrender.com) to open a working version of the project in cloud.
 # Screenshots
 ## User View
+
+**Initial view when the app is opened**
 ![Initial User View](screenshots/initial-user-view.PNG)
+
+**An alternative language learning view**
 ![Alternative User View](screenshots/alt-user-view.PNG)
 
 ## Admin View
+
+**Admin view to add, delete and access editing word pairs**
 ![Admin View](screenshots/admin-view.png)
+
+**Edit view to edit word pairs**
 ![Edit View](screenshots/edit-view.PNG)
 
 # Screencast
