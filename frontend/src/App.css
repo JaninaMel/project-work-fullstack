@@ -53,7 +53,7 @@ a {
 
 .instructions {
   margin: auto;
-  width: 70%;
+  width: 40%;
 }
 
 .instructions p:first-of-type {
@@ -76,6 +76,7 @@ a {
   margin: auto auto 10px auto;
   justify-content: center;
   display: flex;
+  width: 70%;
 }
 
 .word-pair {
