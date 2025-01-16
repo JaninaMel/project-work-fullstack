@@ -62,5 +62,4 @@ Click this link [Learn English App](https://backend-dev-deployment.onrender.com)
 
 # Screencast
 
-Link to the screencast
-[Screencast](https://youtu.be/-L8WGqYfwW0)
+Link to the [Screencast](https://youtu.be/-L8WGqYfwW0)
