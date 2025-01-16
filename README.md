@@ -26,8 +26,8 @@ You can change wheter yiu want to translate the words into English or Finnish by
 # How to run this project
 In the cloned repository run the following commands:
 
-1. npm run install-all
-2. npm run start
+1. `npm run install-all`
+2. `npm run start`
 
 Project should now be ready to use.
 
